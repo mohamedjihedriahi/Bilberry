@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bilberry</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-left">
+        <div class="app-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="20" height="20" rx="5" fill="#2563EB" />
+            <path d="M7 12H17M7 8H17M7 16H13" stroke="white" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </div>
+        <h1 class="app-title">Bilberry</h1>
+        <span class="message-count" id="message-count">0 messages</span>
+      </div>
+
+      <div class="header-right">
+        <div id="private-mode-indicator" class="status-indicator hidden" title="Private Mode Active">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+        </div>
+        <button class="icon-btn" title="History" id="history-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+        </button>
+        <button class="icon-btn" title="Toggle Theme" id="theme-btn">
+          <!-- Default to Sun (Dark Mode active, click to switch to light) -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+        <button class="icon-btn" title="Settings" id="settings-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path
+              d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+            </path>
+          </svg>
+        </button>
+        <button class="icon-btn" title="Close" onclick="window.close()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+    </header>
+
+    <!-- History Popover (Hidden by default) -->
+    <div id="history-popover" class="history-popover hidden">
+      <div class="history-header">
+        <h3>Conversation History</h3>
+        <button class="icon-btn" id="close-history-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="history-search-container">
+        <div class="search-input-wrapper">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="history-search-input" placeholder="Search conversations...">
+        </div>
+        <button class="delete-all-btn" id="delete-all-history-btn" title="Delete All History">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+            </path>
+          </svg>
+        </button>
+      </div>
+
+      <div class="history-controls">
+        <div class="private-toggle-wrapper">
+          <div class="private-label">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <span>Private Mode</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="private-mode-toggle">
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+      <div id="private-mode-placeholder" class="private-mode-placeholder hidden">
+        <div class="large-lock-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+        </div>
+        <h3>Private Mode Active</h3>
+        <p>Conversations are not saved while private mode is enabled.</p>
+      </div>
+
+      <div class="history-list" id="history-list">
+        <!-- History items injected here -->
+      </div>
+      <div class="history-detail hidden" id="history-detail">
+        <div class="detail-header">
+          <button class="icon-btn" id="history-back-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+          </button>
+          <h3 id="detail-title">Conversation Preview</h3>
+        </div>
+        <div class="detail-content" id="detail-content"></div>
+        <div class="detail-actions">
+          <button class="primary-btn full-width" id="load-history-btn">Load Conversation</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Setup View (Hidden by default) -->
+    <div id="setup-view" class="view hidden">
+      <div class="setup-content">
+        <h2>Configuration</h2>
+        <div class="input-group">
+          <label>Gemini API Key</label>
+          <input type="password" id="gemini-api-key-input" placeholder="Enter Gemini API Key">
+        </div>
+        <div class="input-group">
+          <label>OpenAI API Key (Optional)</label>
+          <input type="password" id="openai-api-key-input" placeholder="Enter OpenAI API Key">
+        </div>
+        <div class="input-group">
+          <label>Mistral API Key (Optional)</label>
+          <input type="password" id="mistral-api-key-input" placeholder="Enter Mistral API Key">
+        </div>
+        <button id="save-key-btn" class="primary-btn full-width">Save &amp; Continue</button>
+        <button id="cancel-setup-btn" class="text-btn full-width">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Main Chat View -->
+    <div id="chat-view" class="view">
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <button class="tool-btn" id="summarize-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          Summarize
+        </button>
+        <button class="tool-btn" id="export-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Export
+        </button>
+        <button class="tool-btn" id="new-chat-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <defs>
+              <linearGradient id="magic-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#8B5CF6;stop-opacity:1" /> <!-- Purple -->
+                <stop offset="50%" style="stop-color:#EC4899;stop-opacity:1" /> <!-- Pink -->
+                <stop offset="100%" style="stop-color:#F59E0B;stop-opacity:1" /> <!-- Amber -->
+              </linearGradient>
+            </defs>
+            <path stroke="url(#magic-gradient)"
+              d="M12 3l1.912 5.813a2 2 0 0 1 1.275 1.275L21 12l-5.813 1.912a2 2 0 0 1-1.275 1.275L12 21l-1.912-5.813a2 2 0 0 1-1.275-1.275L3 12l5.813-1.912a2 2 0 0 1 1.275-1.275L12 3Z">
+            </path>
+            <path stroke="url(#magic-gradient)" d="M5 3v4"></path>
+            <path stroke="url(#magic-gradient)" d="M9 5H1"></path>
+          </svg>
+          Ask this Page
+        </button>
+        <button class="icon-btn" id="view-toggle-btn" title="Toggle Panel">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="9" y1="3" x2="9" y2="21"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Page Analysis -->
+      <div class="page-analysis">
+        <div class="analysis-header">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4F46E5" stroke-width="2">
+            <path d="M12 2a10 10 0 1 0 10 10H12V2z"></path>
+            <path d="M12 2a10 10 0 0 1 10 10"></path>
+            <path d="M12 12L2.5 12"></path>
+          </svg>
+          <span>Page Analysis</span>
+        </div>
+        <p class="analysis-status" id="analysis-status">Ready to analyze content.</p>
+        <div class="analysis-meta">
+          <span>Complexity: <strong id="complexity-val">Low</strong></span>
+          <span class="dot">•</span>
+          <span>Confidence: <strong id="confidence-val">100%</strong></span>
+        </div>
+      </div>
+
+      <!-- Workspace Container (Tabs + Content) - Hidden initially -->
+      <div id="workspace-container" class="workspace-container hidden">
+        <!-- Tab Bar -->
+        <div class="tab-bar">
+          <button class="tab-btn active" data-tab="chat">Chat</button>
+          <button class="tab-btn" data-tab="saved">Saved</button>
+        </div>
+
+        <!-- Tab Content: Chat -->
+        <div id="tab-chat" class="tab-content active">
+          <div id="chat-history" class="chat-history">
+            <!-- Messages will be injected here -->
+            <div class="message system">
+              <div class="bubble">
+                Hello! I'm here to help you understand and analyze the content on this page.
+                <br><br>
+                What would you like to explore?
+              </div>
+              <div class="message-actions">
+                <span class="timestamp">Just now</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab Content: Saved -->
+        <div id="tab-saved" class="tab-content">
+          <!-- Saved List View -->
+          <div id="saved-list-view" class="saved-list-view">
+            <div class="saved-search">
+              <div class="search-input-wrapper">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="saved-search-input" placeholder="Search conversations...">
+              </div>
+            </div>
+            <div class="saved-list" id="saved-list">
+              <!-- Saved conversations will be injected here -->
+            </div>
+          </div>
+
+          <!-- Saved Preview View (Read-Only) -->
+          <div id="saved-preview-view" class="saved-preview-view hidden">
+            <div class="saved-preview-header">
+              <button class="icon-btn" id="saved-back-btn" title="Back to list">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="19" y1="12" x2="5" y2="12"></line>
+                  <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+              </button>
+              <h3 id="saved-preview-title">Conversation Preview</h3>
+            </div>
+            <div class="saved-preview-content" id="saved-preview-content">
+              <!-- Read-only messages will be injected here -->
+            </div>
+            <div class="saved-preview-actions">
+              <button class="primary-btn full-width" id="load-saved-btn">Load Conversation</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Page Analysis (shown initially) -->
+      <div id="chat-history-initial" class="chat-history">
+        <!-- Initial welcome message before tabs appear -->
+        <div class="message system">
+          <div class="bubble">
+            Hello! I'm here to help you understand and analyze the content on this page.
+            <br><br>
+            What would you like to explore?
+          </div>
+          <div class="message-actions">
+            <span class="timestamp">Just now</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input Area -->
+      <div class="input-area">
+        <!-- Toast Notification -->
+        <div id="toast" class="toast hidden"></div>
+
+        <!-- Row 1: Controls -->
+        <div class="controls-bar">
+          <select id="model-selector" class="model-selector" title="Select AI Model">
+            <option value="auto">Auto</option>
+            <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+            <option value="gemini-2.5-pro">Gemini 2.5 Pro</option>
+            <option value="gpt-4o-mini">OpenAI o4-mini</option>
+            <option value="mistral-small-latest">Mistral Small 3</option>
+          </select>
+          <div class="separator"></div>
+          <button class="icon-toggle" id="web-search-toggle" title="Toggle Web Search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+              </path>
+            </svg>
+          </button>
+          <button class="icon-toggle" id="save-chat-btn" title="Save Conversation">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+              <polyline points="17 21 17 13 7 13 7 21"></polyline>
+              <polyline points="7 3 7 8 15 8"></polyline>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Row 2: Status Text -->
+        <div id="web-search-status" class="web-search-status">
+          <svg class="mini-globe" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span id="web-search-status-text">Web search disabled</span>
+        </div>
+
+        <div class="input-wrapper">
+          <textarea id="user-input" placeholder="Ask about this page..." rows="1"></textarea>
+          <button id="send-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </div>
+        <div class="input-hint">Press Enter to send, Shift+Enter for new line</div>
+      </div>
+
+
+    </div>
+  </div>
+  <script src="lib/html2canvas.min.js"></script>
+  <script src="lib/jspdf.umd.min.js"></script>
+  <script src="lib/html-docx.js"></script>
+  <script src="utils.js"></script>
+  <script src="popup.js"></script>
+</body>
+
+</html>
