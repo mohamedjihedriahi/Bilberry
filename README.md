@@ -2,12 +2,7 @@
 
 Bilberry is a Chrome Side Panel extension that integrates Large Language Models directly into your browsing workflow. It allows you to chat with, analyze, and generate documents from any active web page or PDF using your own API keys.
 
-<div align="center">
-  <img src="Bilberry_logo.jpeg" alt="Bilberry Logo" width="200">
-  <br>
-  <h1>Bilberry</h1>
-</div>
-
+!(Bilberry_logo.jpeg)
 ## Features
 
 *   **True Private Experience**: Operates via a client-side only approach. Calls are made directly from your browser to the AI APIs with no intermediate servers. Includes a "Private Mode" to prevent local logging.
